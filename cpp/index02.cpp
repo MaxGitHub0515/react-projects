@@ -1,18 +1,28 @@
 
 
-// making privzte variables visible and used in public with getters and setters  
-// if we have variables in private 
-// we use getters and setters in public)
+// Abstraction using virtual
+// hiding complex things behind the precedure that makes those things simple POV
 
-class Employee{
+#include <iostream>
+using namespace std;
+
+class AbsEmp {
+    // obligatory using keyword virtual - making it virtual func
+    virtual void askForProm() = 0;
+    // employee signs the contract using : AbsEmp 
+    // inheritence used 
+};
+
+// : AbsEmp - employyed signed the contract
+// next step - use overrider in public in Employee class
+class Employee: AbsEmp{
     private:
     string Name;
     string Company;
     int Age;
     
     public:
-    // now we after getters and setters we now can use 
-    // private variables
+  
     void setName(string name){
         Name = name;
     }
@@ -41,7 +51,7 @@ class Employee{
         return Company;
     }
     void introduceYourself() {
-        cout << "Name: " << Name << ", Age: " << Age << ", Company: " << Company << endl;
+       
     }
     
     Employee(string name, string company, int age){
@@ -50,34 +60,42 @@ class Employee{
         Age = age;
     }
     
+    void askForProm() override {
+        if(Age > 30) {
+            cout << Name << " got promoted" << endl;
+        } else {
+            cout << "No promotion for ya " << Name << endl;
+        }
+        }
+    
+    
 };
+
+
 
 
 int main() {
     
     
     Employee employee1 = Employee("Sald", "YT", 45);
-    employee1.setName("MAx");
-    employee1.introduceYourself();
+    employee1.askForProm();
     
     Employee employee2 = Employee("Ben", "FC", 21);
-    employee2.introduceYourself();
+    employee2.askForProm();
     
     
    
    
-    
-    
+  
     
     return 0;
     
 };
 
-
 /* OUTCOME */
 
 
 /* 
-Name: MAx, Age: 45, Company: YT
-Name: Ben, Age: 21, Company: FC
+Sald got promoted
+No promotion for ya Ben
 */
